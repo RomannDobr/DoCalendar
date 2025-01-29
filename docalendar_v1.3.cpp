@@ -16,6 +16,7 @@ using namespace std;
 void nowData(int w, int d, int m, int y);
 void newSeason(int x, int y, string a);
 void userCount(int x, int y, string message);
+void manual();
 int charToInt(char iks);
 int spaceLength(string iks, string std, int dif);
 int spaceLength(string iks);
@@ -234,7 +235,7 @@ ifstream efiles;
         SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
          SetConsoleCP(65001);     //       SetConsoleCP(65001);
 
-if(j < 4) cout << "      ->>> Создать событие? (нажмите 1)\n";
+if(j < 4) cout << "      ->>> Создать событие?  (нажмите 1)\n";
 if(j > 0) cout << "      <<<- Удалить событие? ";
 
          SetConsoleOutputCP(1251); // SetConsoleOutputCP(1251);
@@ -248,6 +249,14 @@ if(j == 3) cout << " " << event1 << "(3).\n" << "                             "
 if(j == 4) cout << " " << event1 << "(3).\n" << "                             "
 << event2 << "(4).\n" << "                             " << event3 << "(5).\n"
 << "                             " << event4 << "(6).\n";
+
+        SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
+         SetConsoleCP(65001);     //       SetConsoleCP(65001);
+
+cout << "       ->>  Инстркуция  <<-  (нажмите 2)\n";
+
+         SetConsoleOutputCP(1251); // SetConsoleOutputCP(1251);
+        SetConsoleCP(1251);       //         SetConsoleCP(1251);
 
 cin >> question;
 
@@ -362,6 +371,8 @@ if (question >= 3 && question <= 6)
         }
         }
 
+// ИНСТРУКЦИЯ
+if (j < 5 && question == 2) manual();
 
 for (int i = 0; i<5; i++) cout << "\n";
 system("pause");
@@ -513,4 +524,14 @@ int spaceLength(string iks)
     for(int i=0; i<iks.size(); i++) x++;
         x = (50-x)/2;
     return x;
+}
+
+void manual()
+{
+    cout << " --------------------------------------------------------------\n\n";
+    cout << "    Программа считает дни оставшиеся до какого-либо события,\n";
+    cout << "         либо дни прошедшие после какого-либо события.\n";
+    cout << "              Чтобы создать событие нажмите \"2\".\n";
+    cout << " --------------------------------------------------------------";
+    // cout << " ______________________________________________________________";
 }
