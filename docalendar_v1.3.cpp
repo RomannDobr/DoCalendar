@@ -29,9 +29,8 @@ SetConsoleCP(65001);
 cout << "\n                 ---      ДоКалендарь      ---                 \n";
 
 /// посмотреть как будет меняться сколнение недель на сезонах (difference+1 в строке 302) 
-/// релиз
 
-//// остановился на: 
+//// остановился на: github push
 
 time_t now = time(0); // текущая дата/время, основанные на текущей системе <ctime>
 tm *ltm = localtime(&now);
@@ -404,7 +403,6 @@ void newSeason(int x, int y, string a) // счётчик до НГ, весны, 
 {
         int difference = difftime(y, x) / (60 * 60 * 24);
         cout << " ______________________________________________________________\n\n";
-        // cout << "\n       ";
         for(int i=0; i<spaceLength(a); i++) cout << " ";
         cout << a;
         cout << " " << difference+1 << " дн. " << difference/7;
