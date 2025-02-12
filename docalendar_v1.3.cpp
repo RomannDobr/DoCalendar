@@ -32,14 +32,14 @@ setlocale(LC_ALL, "RU");
 SetConsoleOutputCP(65001);
 SetConsoleCP(65001);
 
-cout << "\n                 ---      ДоКалендарь      ---                 \n";
+cout << "\n                    ---      ДоКалендарь      ---                    \n";
 
 /// посмотреть как будет меняться сколнение недель на сезонах (difference+1 в строке 302)
 /// добавить верификацию
+/// gitignore
 /// добавить автозагрузку (добавить вопрос пользователю)
-/// добавить иконку
 
-//// остановился на: 
+//// остановился на: ошибки при удалении. Стр 347 - удаляет |
 
 time_t now = time(0); // текущая дата/время, основанные на текущей системе <ctime>
 tm *ltm = localtime(&now);
@@ -79,13 +79,13 @@ ifstream firstfiles;
     int j = 0;
          SetConsoleOutputCP(1251); // SetConsoleOutputCP(1251);
         SetConsoleCP(1251);       //         SetConsoleCP(1251);
-    for(int i; j<4 && i<*n; i++) // поиск стартовой метки события - "|"
+    for(int i=0; j<4 && i<*n; i++) // поиск стартовой метки события - "|"
     {
     firstfiles >> buf;      
     if(buf == '|')
     {
     firstfiles >> buffer1; // считывание названия из одного слова
-    for(int i; buf != '.'; i++) // считывание большого названия
+    for(int i=0; buf != '.'; i++) // считывание большого названия
     {
         firstfiles >> buf;
         if(buf == '.') break;
@@ -179,14 +179,14 @@ ifstream efiles;
     if(efiles.is_open()) {
          SetConsoleOutputCP(1251); // SetConsoleOutputCP(1251);
         SetConsoleCP(1251);       //         SetConsoleCP(1251);
-    for(int i; i<*n; i++)
+    for(int i=0; i<*n; i++)
     { 
         efiles >> buf;       
         if(buf == '|') { // персчитывает колличество событий. Для отображения
         j++;
         if(j == 1) {
         efiles >> event1;
-            for(int i; buf != '.'; i++) // считывание большого названия
+            for(int i=0; buf != '.'; i++) // считывание большого названия
             {
                 efiles >> buf;
                 if(buf == '.') break;
@@ -199,7 +199,7 @@ ifstream efiles;
         if(j == 2)
         {
         efiles >> event2;
-                    for(int i; buf != '.'; i++) // считывание большого названия
+                    for(int i=0; buf != '.'; i++) // считывание большого названия
                     {
                 efiles >> buf;
                 if(buf == '.') break;
@@ -212,7 +212,7 @@ ifstream efiles;
         if(j == 3)
         {
         efiles >> event3;
-                    for(int i; buf != '.'; i++) // считывание большого названия
+                    for(int i=0; buf != '.'; i++) // считывание большого названия
                     {
                 efiles >> buf;
                 if(buf == '.') break;
@@ -225,7 +225,7 @@ ifstream efiles;
         if(j == 4)
         {
         efiles >> event4;
-                    for(int i; buf != '.'; i++) // считывание большого названия
+                    for(int i=0; buf != '.'; i++) // считывание большого названия
                     {
                 efiles >> buf;
                 if(buf == '.') break;
@@ -243,25 +243,25 @@ ifstream efiles;
         SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
          SetConsoleCP(65001);     //       SetConsoleCP(65001);
 
-if(j < 4) cout << "      ->>> Создать событие?  (нажмите 1)\n";
-if(j > 0) cout << "      <<<- Удалить событие? ";
+if(j < 4) cout << "             ->>> Создать событие?  (нажмите 1)\n";
+if(j > 0) cout << "             <<<- Удалить событие? ";
 
          SetConsoleOutputCP(1251); // SetConsoleOutputCP(1251);
         SetConsoleCP(1251);       //         SetConsoleCP(1251);
 
 if(j == 1) cout << " " << event1 << " (3).\n";
-if(j == 2) cout << " " << event1 << " (3).\n" << "                             " 
+if(j == 2) cout << " " << event1 << " (3).\n" << "                                    " 
                 << event2 << "(4).\n";
-if(j == 3) cout << " " << event1 << " (3).\n" << "                             "
-<< event2 << " (4).\n"<< "                             " << event3 << " (5).\n";
-if(j == 4) cout << " " << event1 << " (3).\n" << "                             "
-<< event2 << " (4).\n" << "                             " << event3 << " (5).\n"
-<< "                             " << event4 << " (6).\n";
+if(j == 3) cout << " " << event1 << " (3).\n" << "                                    "
+<< event2 << " (4).\n"<< "                                    " << event3 << " (5).\n";
+if(j == 4) cout << " " << event1 << " (3).\n" << "                                    "
+<< event2 << " (4).\n" << "                                    " << event3 << " (5).\n"
+<< "                                    " << event4 << " (6).\n";
 
         SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
          SetConsoleCP(65001);     //       SetConsoleCP(65001);
 
-cout << "       ->>  Инстркуция  <<-  (нажмите 2)\n";
+cout << "              ->>  Инстркуция  <<-  (нажмите 2)\n";
 
          SetConsoleOutputCP(1251); // SetConsoleOutputCP(1251);
         SetConsoleCP(1251);       //         SetConsoleCP(1251);
@@ -270,38 +270,38 @@ cin >> question;
 
         SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
          SetConsoleCP(65001);     //       SetConsoleCP(65001);
-
-// СОЗДАНИЕ
-if (j < 4 && question == 1)
-{
-string message;
-cout << " Введите название события:\n";
-
-         SetConsoleOutputCP(1251); // SetConsoleOutputCP(1251);
-        SetConsoleCP(1251);       //         SetConsoleCP(1251);
-
-getline(cin, message);
-while (message.empty())
-    {
-        cin.clear(); 
+         
+         // СОЗДАНИЕ
+         if (j < 4 && question == 1)
+         {
+             string message;
+             cout << " Введите название события:\n";
+             
+             SetConsoleOutputCP(1251); // SetConsoleOutputCP(1251);
+             SetConsoleCP(1251);       //         SetConsoleCP(1251);
+             
+             getline(cin, message);
+             while (message.empty())
+             {
+                 cin.clear(); 
         getline(cin, message);
     }
-
-         SetConsoleOutputCP(1251); // SetConsoleOutputCP(1251);
-        SetConsoleCP(1251);       //         SetConsoleCP(1251);
-
-ofstream name("DoCalendar_data.txt", ios::app);
-name << "|" << message << " . ";
+    
+    SetConsoleOutputCP(1251); // SetConsoleOutputCP(1251);
+    SetConsoleCP(1251);       //         SetConsoleCP(1251);
+    
+    ofstream name("DoCalendar_data.txt", ios::app);
+    name << "|" << message << " . ";
 name.close();
 
-        SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
-         SetConsoleCP(65001);     //       SetConsoleCP(65001); 
+SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
+SetConsoleCP(65001);     //       SetConsoleCP(65001); 
 
 cout << " Две последних цифры года события\n";
 ofstream name2("DoCalendar_data.txt", ios::app);
 if(name2.is_open())
 {
-cin >> oneofyear;
+    cin >> oneofyear;
 oneyear = oneofyear+2000;
 ofstream name2("DoCalendar_data.txt", ios::app);
 name2 << oneyear << " ";
@@ -321,32 +321,58 @@ struct tm c = {0,0,0,oneofday,oneoftvelve-1,oneyear-1925,0,0,0};
 time_t w = mktime(&c);
 userCount(x,w,message);
 }
-         
+
 // УДАЛЕНИЕ
 if (question >= 3 && question <= 6)
-    {
+{
     char *buff = new char[*n];
     char buf;
+    int o = 0;
     ifstream delfil1("DoCalendar_data.txt", ios::in);
-    for(int i, l=0; delfil1; i++)
-        { 
-         SetConsoleOutputCP(1251); // SetConsoleOutputCP(1251);
-        SetConsoleCP(1251);       //         SetConsoleCP(1251);
+    //  SetConsoleOutputCP(1251); // SetConsoleOutputCP(1251);
+    // SetConsoleCP(1251);       //         SetConsoleCP(1251);
+    SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
+     SetConsoleCP(65001);     //       SetConsoleCP(65001);
+    for(int i=0, l=0; delfil1; i++)
+    { 
         delfil1.get(buf);
         if(buf == '|') l++;
-        if(question == 3 && l != 1 && l != 0) buff[i] = buf;
-        if(question == 4 && l != 2 && l != 0) buff[i] = buf;
-        if(question == 5 && l != 3 && l != 0) buff[i] = buf;
-        if(question == 6 && l != 4 && l != 0) buff[i] = buf;
+        if(question == 3 && l != 1)
+        {
+                 buff[i] = buf;
+            o++;
         }
-        delfil1.close();
+        if(question == 4 && l != 2)
+        {
+            buff[i] = buf;
+            o++;
+        }
+        if(question == 5 && l != 3)
+        {
+            buff[i] = buf;
+            o++;
+        }
+        if(question == 6 && l != 4)
+        {
+            buff[i] = buf;
+            o++;
+        }
+    }
+    // buff[o] = '/';
+    delfil1.close();
     ofstream delfiles1("DoCalendar_data.txt", ios::out);
-    for(int i=0; i<321; i++)
+        SetConsoleOutputCP(1251); // SetConsoleOutputCP(1251);
+       SetConsoleCP(1251);       //         SetConsoleCP(1251);
+    for(int i=0, l=0; i<=o; i++)
+    {
+        // cout << buff[i];
+        if(buff[i] == '|')
         {
-        if(buff[i] != '\0')
-        {
-        delfiles1 << buff[i];
+            l++;
+            delfiles1 << buff[i];
         }
+        if(l != 0 && buff[i] != '|') delfiles1 << buff[i];
+        // if(buff[i] == '/') break;
         }
         if(question == 3)
         {
@@ -394,8 +420,8 @@ return 0;
 
 void nowData(int w, int d, int m, int y) // отображение текущей даты
     {
-    cout << "                                        \n";
-    cout << "                    Сегодня ";
+    // cout << "                                        \n";
+    cout << "\n                        Сегодня ";
     switch (w)
     {
     case 1: cout << "пн"; break;
@@ -414,14 +440,14 @@ void newSeason(int x, int y, string a) // счётчик до НГ, весны, 
    if ( x != (time_t)(-1) && y != (time_t)(-1) )
 {
         int difference = difftime(y, x) / (60 * 60 * 24);
-        cout << " ______________________________________________________________\n\n";
+        cout << " ____________________________________________________________________\n\n";
         for(int i=0; i<spaceLength(a); i++) cout << " ";
         cout << a;
         cout << " " << difference+1 << " дн. " << difference/7;
         if((difference/7) % 10 == 1) cout  << " полная нед." << endl;
         if((difference/7) == 0) cout  << " меньше нед." << endl;
         if((difference/7) % 10 != 1 && (difference/7) != 0) cout  << " полных нед." << endl;
-        cout << " ______________________________________________________________\n";
+        cout << " ____________________________________________________________________\n";
     }
 }
 
@@ -433,7 +459,7 @@ void userCount(int x, int y, string message) // отображение перв�
          SetConsoleOutputCP(1251); // SetConsoleOutputCP(1251);
         SetConsoleCP(1251);       //         SetConsoleCP(1251);
         int j = 0;
-        for(int i; j<1 && i<54321; i++)
+        for(int i=0; j<1 && i<54321; i++)
         { 
             name >> msg;
     if (msg == '|' && x != (time_t)(-1) && y != (time_t)(-1) )
@@ -441,14 +467,10 @@ void userCount(int x, int y, string message) // отображение перв�
         if (y > x)
         {
         int difference = difftime(y, x) / (60 * 60 * 24);
-        cout << " ______________________________________________________________\n\n";
-        // for(int i=0; i<=spaceLength(message, " через  дн. ", difference)+1; i++) cout << " ";
-        // cout << message; 
-        // SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
-        //  SetConsoleCP(65001);     //       SetConsoleCP(65001);
+        cout << " ____________________________________________________________________\n\n";
         if((difference) < 8)
         {
-            for(int i=0; i<=spaceLength(message, " через  дн. ", difference); i++) cout << " ";
+            for(int i=0; i<=spaceLength(message, "черездн", difference); i++) cout << " ";
             cout << message; 
             SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
              SetConsoleCP(65001);     //       SetConsoleCP(65001);
@@ -457,7 +479,7 @@ void userCount(int x, int y, string message) // отображение перв�
         
         if((difference/7) % 10 == 1  && (difference/365) < 1 && (difference) >= 8) 
         {
-            for(int i=0; i<=spaceLength(message, " через  дн.  полную нед. ", difference); i++) cout << " ";
+            for(int i=0; i<=spaceLength(message, "через дн.полную нед.", difference); i++) cout << " ";
             cout << message; 
             SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
              SetConsoleCP(65001);     //       SetConsoleCP(65001);
@@ -466,7 +488,7 @@ void userCount(int x, int y, string message) // отображение перв�
         
         if((difference/7) % 10 != 1 && (difference/7) != 0 && (difference/365) < 1 && (difference) >= 8) 
         {
-            for(int i=0; i<=spaceLength(message, " через  дн.  полных нед. ", difference); i++) cout << " ";
+            for(int i=0; i<=spaceLength(message, "через дн.полных нед.", difference); i++) cout << " ";
             cout << message; 
             SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
              SetConsoleCP(65001);     //       SetConsoleCP(65001);
@@ -508,17 +530,17 @@ void userCount(int x, int y, string message) // отображение перв�
                 SetConsoleCP(65001);     //       SetConsoleCP(65001);
         cout << " через " << difference << " дн. " << difference/7 << " полных нед. "  << difference/365  << " лет." << endl;
         }
-        cout << " ______________________________________________________________\n";
+        cout << " ____________________________________________________________________\n";
         j++;
         }
 
         if (y < x)
         {
         int difference = difftime(x, y) / (60 * 60 * 24);
-        cout << " ______________________________________________________________\n\n";
+        cout << " ____________________________________________________________________\n\n";
         if((difference) < 8)
         {
-            for(int i=0; i<=spaceLength(message, " уже  дн. ", difference); i++) cout << " ";
+            for(int i=0; i<=spaceLength(message, "ужедн", difference); i++) cout << " ";
             cout << message; 
             SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
              SetConsoleCP(65001);     //       SetConsoleCP(65001);
@@ -527,7 +549,7 @@ void userCount(int x, int y, string message) // отображение перв�
 
         if((difference/7) % 10 == 1  && (difference/365) < 1 && (difference) >= 8) 
         {
-            for(int i=0; i<=spaceLength(message, " уже  дн.  полную нед. ", difference); i++) cout << " ";
+            for(int i=0; i<=spaceLength(message, "уже дн.полную нед.", difference); i++) cout << " ";
             cout << message; 
             SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
              SetConsoleCP(65001);     //       SetConsoleCP(65001);
@@ -536,7 +558,7 @@ void userCount(int x, int y, string message) // отображение перв�
 
         if((difference/7) % 10 != 1 && (difference/7) != 0 && (difference/365) < 1 && (difference) >= 8) 
         {
-            for(int i=0; i<=spaceLength(message, " уже  дн.  полных нед. ", difference); i++) cout << " ";
+            for(int i=0; i<=spaceLength(message, "уже дн.полных нед.", difference); i++) cout << " ";
             cout << message; 
             SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
              SetConsoleCP(65001);     //       SetConsoleCP(65001);
@@ -578,7 +600,7 @@ void userCount(int x, int y, string message) // отображение перв�
                 SetConsoleCP(65001);     //       SetConsoleCP(65001);
         cout << " уже " << difference << " дн. " << difference/7 << " полных нед. "  << difference/365  << " лет." << endl;
         }
-        cout << " ______________________________________________________________\n";
+        cout << " ____________________________________________________________________\n";
         j++;
             }
         }
@@ -604,7 +626,8 @@ int charToInt (char iks) // преодразование char в int (от 0 д�
 
 int spaceLength(string iks, string std, int dif)
 {
-    int x=0, s=0, d=0, j=1;
+    int x=0, d=0, j=1;
+    size_t s=0;
     for(size_t i=0; iks[i]; i++) x++;
     for(s=0; s<std.size(); s++);
     for(int i=1; i<dif; i++)
@@ -616,8 +639,7 @@ int spaceLength(string iks, string std, int dif)
         }
         j *= 10;
     }
-    // if(dif < 356) k=2;
-        x = (64-(x+d+(s*0.7)))/2;
+        x = (69-(x+d+(s*0.7)))/2;
     return x;
 }
 
@@ -625,16 +647,16 @@ int spaceLength(string iks)
 {
     int x = 0;
     for(size_t i=0; i<iks.size(); i++) x++;
-        x = (50-x)/2;
+        x = ((56-x)/2)+1;
     return x;
 }
 
 void manual()
 {
-    cout << " --------------------------------------------------------------\n";
-    cout << "    Программа считает дни оставшиеся до какого-либо события,\n";
-    cout << "        а также дни прошедшие после какого-либо события.\n";
-    cout << "     Чтобы создать новый отсчёт перезапустите ДоКалендарь,\n";
-    cout << "   затем нажмите \"1\". Можно создать не более четырёх событий.\n";
-    cout << " --------------------------------------------------------------";
+    cout << " --------------------------------------------------------------------\n";
+    cout << "       Программа считает дни оставшиеся до какого-либо события,\n";
+    cout << "           а также дни прошедшие после какого-либо события.\n";
+    cout << "        Чтобы создать новый отсчёт перезапустите ДоКалендарь,\n";
+    cout << "      затем нажмите \"1\". Можно создать не более четырёх событий.\n";
+    cout << " --------------------------------------------------------------------";
 }
