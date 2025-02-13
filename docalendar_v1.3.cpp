@@ -37,8 +37,12 @@ cout << "\n                    ---      ДоКалендарь      ---         
 /// посмотреть как будет меняться сколнение недель на сезонах (difference+1 в строке 302)
 /// добавить верификацию
 /// добавить автозагрузку (добавить вопрос пользователю)
+<<<<<<< HEAD
+=======
+/// добавить иконку
+>>>>>>> origin
 
-//// остановился на: 
+//// остановился на: настраивал отступы при удалении Менее недели и Менее года
 
 time_t now = time(0); // текущая дата/время, основанные на текущей системе <ctime>
 tm *ltm = localtime(&now);
@@ -78,7 +82,11 @@ ifstream firstfiles;
     int j = 0;
          SetConsoleOutputCP(1251); // SetConsoleOutputCP(1251);
         SetConsoleCP(1251);       //         SetConsoleCP(1251);
+<<<<<<< HEAD
     for(int i=0; j<4 && i<*n; i++) // поиск стартовой метки события - "|"
+=======
+    for(int i; j<4 && i<*n; i++) // поиск стартовой метки события - "|"
+>>>>>>> origin
     {
     firstfiles >> buf;      
     if(buf == '|')
@@ -178,7 +186,11 @@ ifstream efiles;
     if(efiles.is_open()) {
          SetConsoleOutputCP(1251); // SetConsoleOutputCP(1251);
         SetConsoleCP(1251);       //         SetConsoleCP(1251);
+<<<<<<< HEAD
     for(int i=0; i<*n; i++)
+=======
+    for(int i; i<*n; i++)
+>>>>>>> origin
     { 
         efiles >> buf;       
         if(buf == '|') { // персчитывает колличество событий. Для отображения
@@ -323,7 +335,11 @@ userCount(x,w,message);
 
 // УДАЛЕНИЕ
 if (question >= 3 && question <= 6)
+<<<<<<< HEAD
 {
+=======
+    {
+>>>>>>> origin
     char *buff = new char[*n];
     char buf;
     int o = 0;
@@ -385,7 +401,11 @@ if (j < 5 && question == 2) manual();
 
 delete n;
 
+<<<<<<< HEAD
 for (int i=0; i<5; i++) cout << "\n";
+=======
+for (int i = 0; i<5; i++) cout << "\n";
+>>>>>>> origin
 system("pause");
 return 0;
 }
@@ -441,6 +461,7 @@ void userCount(int x, int y, string message) // отображение перв�
         if (y > x)
         {
         int difference = difftime(y, x) / (60 * 60 * 24);
+<<<<<<< HEAD
         cout << " ____________________________________________________________________\n\n";
         if((difference) < 8)
         {
@@ -469,6 +490,18 @@ void userCount(int x, int y, string message) // отображение перв�
             cout << " через " << difference << " дн. " << difference/7  << " полных нед. " << endl;
         }
 
+=======
+        cout << " ______________________________________________________________\n\n";
+        for(int i=0; i<=spaceLength(message, " через ", difference)-1; i++) cout << " ";
+        cout << message; 
+        SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
+         SetConsoleCP(65001);     //       SetConsoleCP(65001);
+        cout << " через " << difference << " дн. ";
+        if((difference/7) % 10 == 1) cout  << " полная нед. ";
+        // if((difference/7) == 0) cout  << " меньше нед. ";
+        if((difference/7) % 10 != 1 && (difference/7) != 0) cout << difference/7 << " полных нед. ";
+        if((difference/365) == 0) cout << endl;
+>>>>>>> origin
         if((difference/365) == 1 || ((difference/365) % 10 == 1 && (difference/365) != 11))
         {
             for(int i=0; i<=spaceLength(message, " через  дн.  полных нед.  год.", difference); i++) cout << " ";
@@ -488,6 +521,7 @@ void userCount(int x, int y, string message) // отображение перв�
         }
         
         if((difference/365) % 10 > 1 && (difference/365) % 10 < 5)
+<<<<<<< HEAD
         {
             for(int i=0; i<=spaceLength(message, " через  дн.  полных нед.  годa.", difference); i++) cout << " ";
             cout << message; 
@@ -505,12 +539,21 @@ void userCount(int x, int y, string message) // отображение перв�
         cout << " через " << difference << " дн. " << difference/7 << " полных нед. "  << difference/365  << " лет." << endl;
         }
         cout << " ____________________________________________________________________\n";
+=======
+                        cout << difference/365  << " годa." << endl;
+        if(((difference/365) % 10 > 4 && (difference/365) % 10 <= 9) 
+        || ((difference/365) % 10 == 0 && (difference/365) != 0))
+                        cout << difference/365  << " лет." << endl;
+        if((difference/365) < 0) cout << difference/365  << " лет." << endl; // лишнее в последствии
+        cout << " ______________________________________________________________\n";
+>>>>>>> origin
         j++;
         }
 
         if (y < x)
         {
         int difference = difftime(x, y) / (60 * 60 * 24);
+<<<<<<< HEAD
         cout << " ____________________________________________________________________\n\n";
         if((difference) < 8)
         {
@@ -539,6 +582,18 @@ void userCount(int x, int y, string message) // отображение перв�
             cout << " уже " << difference << " дн. " << difference/7  << " полных нед. " << endl;
         }
 
+=======
+        cout << " ______________________________________________________________\n\n";
+        for(int i=0; i<=spaceLength(message, " уже   ", difference)-1; i++) cout << " ";
+        cout << message;
+        SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
+         SetConsoleCP(65001);     //       SetConsoleCP(65001);
+        cout << " уже " << difference << " дн. ";
+        if((difference/7) % 10 == 1) cout << difference/7  << " полная нед. ";
+        // if((difference/7) == 0) cout  << " меньше нед. ";
+        if((difference/7) % 10 != 1 && (difference/7) != 0) cout << difference/7  << " полных нед. ";
+        if((difference/365) == 0) cout << endl;
+>>>>>>> origin
         if((difference/365) == 1 || ((difference/365) % 10 == 1 && (difference/365) != 11))
         {
             for(int i=0; i<=spaceLength(message, " уже  дн.  полных нед.  год.", difference); i++) cout << " ";
@@ -558,6 +613,7 @@ void userCount(int x, int y, string message) // отображение перв�
         }
         
         if((difference/365) % 10 > 1 && (difference/365) % 10 < 5)
+<<<<<<< HEAD
         {
             for(int i=0; i<=spaceLength(message, " уже  дн.  полных нед.  годa.", difference); i++) cout << " ";
             cout << message; 
@@ -575,6 +631,14 @@ void userCount(int x, int y, string message) // отображение перв�
         cout << " уже " << difference << " дн. " << difference/7 << " полных нед. "  << difference/365  << " лет." << endl;
         }
         cout << " ____________________________________________________________________\n";
+=======
+                        cout << difference/365  << " годa." << endl;
+        if(((difference/365) % 10 > 4 && (difference/365) % 10 <= 9) 
+        || ((difference/365) % 10 == 0 && (difference/365) != 0))
+                        cout << difference/365  << " лет." << endl;
+        if((difference/365) < 0) cout << difference/365  << " лет." << endl; // лишнее в последствии
+        cout << " ______________________________________________________________\n";
+>>>>>>> origin
         j++;
             }
         }
@@ -600,10 +664,16 @@ int charToInt (char iks) // преодразование char в int (от 0 д�
 
 int spaceLength(string iks, string std, int dif)
 {
+<<<<<<< HEAD
     int x=0, d=0, j=1;
     size_t s=0;
     for(size_t i=0; iks[i]; i++) x++;
     for(s=0; s<std.size(); s++);
+=======
+    int x=0, s=0, d=0, j=1, k=0;
+    for(size_t i=0; iks[i]; i++) x++;
+    for(size_t i=0; i<std.size(); i++) s++;
+>>>>>>> origin
     for(int i=1; i<dif; i++)
     {
         if(dif/j < 10 && dif/j > 0)
@@ -621,7 +691,11 @@ int spaceLength(string iks)
 {
     int x = 0;
     for(size_t i=0; i<iks.size(); i++) x++;
+<<<<<<< HEAD
         x = ((56-x)/2)+1;
+=======
+        x = (50-x)/2;
+>>>>>>> origin
     return x;
 }
 
