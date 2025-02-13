@@ -36,10 +36,9 @@ cout << "\n                    ---      ДоКалендарь      ---         
 
 /// посмотреть как будет меняться сколнение недель на сезонах (difference+1 в строке 302)
 /// добавить верификацию
-/// gitignore
 /// добавить автозагрузку (добавить вопрос пользователю)
 
-//// остановился на: ошибки при удалении. Стр 347 - удаляет |
+//// остановился на: 
 
 time_t now = time(0); // текущая дата/время, основанные на текущей системе <ctime>
 tm *ltm = localtime(&now);
@@ -329,52 +328,27 @@ if (question >= 3 && question <= 6)
     char buf;
     int o = 0;
     ifstream delfil1("DoCalendar_data.txt", ios::in);
-    //  SetConsoleOutputCP(1251); // SetConsoleOutputCP(1251);
-    // SetConsoleCP(1251);       //         SetConsoleCP(1251);
-    SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
-     SetConsoleCP(65001);     //       SetConsoleCP(65001);
-    for(int i=0, l=0; delfil1; i++)
+    for(int i=0; delfil1; i++)
     { 
         delfil1.get(buf);
-        if(buf == '|') l++;
-        if(question == 3 && l != 1)
-        {
-                 buff[i] = buf;
-            o++;
-        }
-        if(question == 4 && l != 2)
-        {
-            buff[i] = buf;
-            o++;
-        }
-        if(question == 5 && l != 3)
-        {
-            buff[i] = buf;
-            o++;
-        }
-        if(question == 6 && l != 4)
-        {
-            buff[i] = buf;
-            o++;
-        }
+        buff[i] = buf;
+        o++;
     }
-    // buff[o] = '/';
-    delfil1.close();
-    ofstream delfiles1("DoCalendar_data.txt", ios::out);
-        SetConsoleOutputCP(1251); // SetConsoleOutputCP(1251);
-       SetConsoleCP(1251);       //         SetConsoleCP(1251);
-    for(int i=0, l=0; i<=o; i++)
-    {
-        // cout << buff[i];
-        if(buff[i] == '|')
+        delfil1.close();
+        ofstream delfiles1("DoCalendar_data.txt", ios::out);
+        SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
+         SetConsoleCP(65001);     //       SetConsoleCP(65001);
+        for(int i=0, l=0; i<=o; i++)
         {
-            l++;
-            delfiles1 << buff[i];
-        }
-        if(l != 0 && buff[i] != '|') delfiles1 << buff[i];
-        // if(buff[i] == '/') break;
-        }
-        if(question == 3)
+            if(buff[i] == '|') l++;
+            if(question == 3 && l != 1 && l != 0) delfiles1 << buff[i];
+            if(question == 4 && l != 2 && l != 0) delfiles1 << buff[i];
+            if(question == 5 && l != 3 && l != 0) delfiles1 << buff[i];
+            if(question == 6 && l != 4 && l != 0) delfiles1 << buff[i];
+            }
+         SetConsoleOutputCP(1251); // SetConsoleOutputCP(1251);
+        SetConsoleCP(1251);       //         SetConsoleCP(1251);
+            if(question == 3)
         {
             cout << event1;
         SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
@@ -411,7 +385,7 @@ if (j < 5 && question == 2) manual();
 
 delete n;
 
-for (int i = 0; i<5; i++) cout << "\n";
+for (int i=0; i<5; i++) cout << "\n";
 system("pause");
 return 0;
 }
