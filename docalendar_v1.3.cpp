@@ -3,6 +3,7 @@
 // программа считает дни оставшиеся до какого-либо события
 // либо дни прошедшие после какого-либо события
 
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <ctime>
 #include <cstdlib>
@@ -575,6 +576,20 @@ void userCount(int x, int y, string message) // отображение перв�
         cout << " уже " << difference << " дн. " << difference/7 << " полных нед. "  << difference/365  << " лет." << endl;
         }
         cout << " ____________________________________________________________________\n";
+        j++;
+            }
+        if (y == x)
+        {
+        int difference = difftime(x, y) / (60 * 60 * 24);
+        int i = 1;
+        cout << " ____________________________________________________________________\n\n ";
+        for(; i<=spaceLength(message, "сегодня!", difference); i++) cout << ">";
+        cout << " " << message; 
+        SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
+        SetConsoleCP(65001);     //       SetConsoleCP(65001);
+        cout << " сегодня! ";
+        for(; i>1; i--) cout << "<";
+        cout << "\n ____________________________________________________________________\n";
         j++;
             }
         }
