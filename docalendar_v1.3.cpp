@@ -36,8 +36,10 @@ SetConsoleCP(65001);
 cout << "\n                    ---      ДоКалендарь      ---                    \n";
 
 /// посмотреть как будет меняться сколнение недель на сезонах (difference+1 в строке 302)
+// \/ "уже" правильно, "через" прибавляет день, добавлено вчера нуыеуквфн
 /// добавить верификацию
 /// добавить автозагрузку (добавить вопрос пользователю)
+/// сделать выравнивание
 
 //// остановился на: 
 
@@ -418,7 +420,7 @@ void newSeason(int x, int y, string a) // счётчик до НГ, весны, 
         cout << " ____________________________________________________________________\n\n";
         for(int i=0; i<spaceLength(a); i++) cout << " ";
         cout << a;
-        cout << " " << difference+1 << " дн. " << difference/7;
+        cout << " " << difference << " дн. " << difference/7;
         if((difference/7) % 10 == 1) cout  << " полная нед." << endl;
         if((difference/7) == 0) cout  << " меньше нед." << endl;
         if((difference/7) % 10 != 1 && (difference/7) != 0) cout  << " полных нед." << endl;
@@ -443,13 +445,21 @@ void userCount(int x, int y, string message) // отображение перв�
         {
         int difference = difftime(y, x) / (60 * 60 * 24);
         cout << " ____________________________________________________________________\n\n";
-        if((difference) < 8)
+        if((difference) == 1)
+        {
+            for(int i=0; i<=spaceLength(message, "завтра", difference); i++) cout << " ";
+            cout << message; 
+            SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
+             SetConsoleCP(65001);     //       SetConsoleCP(65001);
+            cout << " завтра. " << endl;
+        }
+        if((difference) < 8 && (difference) > 1)
         {
             for(int i=0; i<=spaceLength(message, "черездн", difference); i++) cout << " ";
             cout << message; 
             SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
              SetConsoleCP(65001);     //       SetConsoleCP(65001);
-            cout << " через " << difference << " дн. " << endl;
+            cout << " через " << difference-1 << " дн. " << endl;
         }
         
         if((difference/7) % 10 == 1  && (difference/365) < 1 && (difference) >= 8) 
@@ -458,7 +468,7 @@ void userCount(int x, int y, string message) // отображение перв�
             cout << message; 
             SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
              SetConsoleCP(65001);     //       SetConsoleCP(65001);
-            cout << " через " << difference << " дн. " << difference/7 << " полную нед. " << endl;
+            cout << " через " << difference-1 << " дн. " << difference/7 << " полную нед. " << endl;
         }
         
         if((difference/7) % 10 != 1 && (difference/7) != 0 && (difference/365) < 1 && (difference) >= 8) 
@@ -466,8 +476,8 @@ void userCount(int x, int y, string message) // отображение перв�
             for(int i=0; i<=spaceLength(message, "через дн.полных нед.", difference); i++) cout << " ";
             cout << message; 
             SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
-             SetConsoleCP(65001);     //       SetConsoleCP(65001);
-            cout << " через " << difference << " дн. " << difference/7  << " полных нед. " << endl;
+            SetConsoleCP(65001);     //       SetConsoleCP(65001);
+            cout << " через " << difference-1 << " дн. " << difference/7  << " полных нед. " << endl;
         }
 
         if((difference/365) == 1 || ((difference/365) % 10 == 1 && (difference/365) != 11))
@@ -475,8 +485,8 @@ void userCount(int x, int y, string message) // отображение перв�
             for(int i=0; i<=spaceLength(message, " через  дн.  полных нед.  год.", difference); i++) cout << " ";
             cout << message; 
             SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
-             SetConsoleCP(65001);     //       SetConsoleCP(65001);
-            cout << " через " << difference << " дн. " << difference/7  << " полных нед. " << difference/365  << " год." << endl;
+            SetConsoleCP(65001);     //       SetConsoleCP(65001);
+            cout << " через " << difference-1 << " дн. " << difference/7  << " полных нед. " << difference/365  << " год." << endl;
         }
         
         if((difference/365) == 11) 
@@ -484,8 +494,8 @@ void userCount(int x, int y, string message) // отображение перв�
             for(int i=0; i<=spaceLength(message, " через  дн.  полных нед.  лет.", difference); i++) cout << " ";
             cout << message; 
             SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
-             SetConsoleCP(65001);     //       SetConsoleCP(65001);
-            cout << " через " << difference << " дн. " << difference/7 << " полных нед. "  << difference/365  << " лет." << endl;
+            SetConsoleCP(65001);     //       SetConsoleCP(65001);
+            cout << " через " << difference-1 << " дн. " << difference/7 << " полных нед. "  << difference/365  << " лет." << endl;
         }
         
         if((difference/365) % 10 > 1 && (difference/365) % 10 < 5)
@@ -493,32 +503,40 @@ void userCount(int x, int y, string message) // отображение перв�
             for(int i=0; i<=spaceLength(message, " через  дн.  полных нед.  годa.", difference); i++) cout << " ";
             cout << message; 
             SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
-             SetConsoleCP(65001);     //       SetConsoleCP(65001);
-            cout << " через " << difference << " дн. " << difference/7 << " полных нед. "  << difference/365  << " годa." << endl;
+            SetConsoleCP(65001);     //       SetConsoleCP(65001);
+            cout << " через " << difference-1 << " дн. " << difference/7 << " полных нед. "  << difference/365  << " годa." << endl;
         }
         
         if(((difference/365) % 10 > 4 && (difference/365) % 10 <= 9) || ((difference/365) % 10 == 0 && (difference/365) != 0))
         {
             for(int i=0; i<=spaceLength(message, " через  дн.  полных нед.  лет.", difference); i++) cout << " ";
-        cout << message; 
-               SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
-                SetConsoleCP(65001);     //       SetConsoleCP(65001);
-        cout << " через " << difference << " дн. " << difference/7 << " полных нед. "  << difference/365  << " лет." << endl;
+            cout << message; 
+            SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
+            SetConsoleCP(65001);     //       SetConsoleCP(65001);
+            cout << " через " << difference-1 << " дн. " << difference/7 << " полных нед. "  << difference/365  << " лет." << endl;
         }
         cout << " ____________________________________________________________________\n";
         j++;
         }
-
+        
         if (y < x)
         {
-        int difference = difftime(x, y) / (60 * 60 * 24);
-        cout << " ____________________________________________________________________\n\n";
-        if((difference) < 8)
-        {
+            int difference = difftime(x, y) / (60 * 60 * 24);
+            cout << " ____________________________________________________________________\n\n";
+            if((difference) == 1)
+            {
+                for(int i=0; i<=spaceLength(message, "вчера", difference); i++) cout << " ";
+                cout << message; 
+                SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
+                 SetConsoleCP(65001);     //       SetConsoleCP(65001);
+                cout << " вчера. " << endl;
+            }
+            if((difference) < 8 && (difference) > 1)
+            {
             for(int i=0; i<=spaceLength(message, "ужедн", difference); i++) cout << " ";
             cout << message; 
             SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
-             SetConsoleCP(65001);     //       SetConsoleCP(65001);
+            SetConsoleCP(65001);     //       SetConsoleCP(65001);
             cout << " уже " << difference << " дн. " << endl;
         }
 
@@ -527,7 +545,7 @@ void userCount(int x, int y, string message) // отображение перв�
             for(int i=0; i<=spaceLength(message, "уже дн.полную нед.", difference); i++) cout << " ";
             cout << message; 
             SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
-             SetConsoleCP(65001);     //       SetConsoleCP(65001);
+            SetConsoleCP(65001);     //       SetConsoleCP(65001);
             cout << " уже " << difference << " дн. " << difference/7 << " полную нед. " << endl;
         }
 
