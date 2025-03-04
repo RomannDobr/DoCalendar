@@ -122,7 +122,7 @@ ifstream firstfiles;
     b = charToInt(buf);
     oneofday = bu*10+b;
     }
-struct tm c = {0,0,0,oneofday,oneoftvelve-1,oneyear+1,0,0,0};
+struct tm c = {0,0,0,oneofday,oneoftvelve-1,oneyear,0,0,0};
 time_t v = mktime(&c);
 userCount(x,v,buffer1);
     }
