@@ -5,6 +5,7 @@
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
+#include <iomanip>
 #include <ctime>
 #include <cstdlib>
 #include <string>
@@ -31,16 +32,16 @@ setlocale(LC_ALL, "RU");
 SetConsoleOutputCP(65001);
 SetConsoleCP(65001);
 
-cout << "\n ---      ДоКалендарь      --- \n";
+cout << "\n ---    ДоКалендарь    ---\n";
 
-/// посмотреть как будет меняться сколнение недель на сезонах (difference+1 в строке 302)
+/// посмотреть как будет меняться
 /// добавить верификацию
 /// добавить автозагрузку (добавить вопрос пользователю)
 
-//// остановился на: выравнивани по краю
+//// остановился на: 
 
 time_t now = time(0); // текущая дата/время, основанные на текущей системе <ctime>
-tm *ltm = localtime(&now);
+struct tm *ltm = localtime(&now);
 int year, month, day, wday;
 year = 1900 + ltm->tm_year;
 month = 1 + ltm->tm_mon;
@@ -58,7 +59,7 @@ int question = 0;
 int* const n = new int {54321}; // просто здоровое число для счётчиков (меньше не работает)
 int j = 0;
 
-struct tm a = {0,0,0,day,month-1,100,0,0,0}; // текущая дата
+struct tm a = {0,0,0,day,month-1,101,0,0,0}; // текущая дата
 time_t x = mktime(&a); // 
 struct tm b = {0,0,0,0,oneoftvelve,101,0,0,0}; // ожидаемая дата
 time_t y = mktime(&b); // 
@@ -121,7 +122,7 @@ ifstream firstfiles;
     b = charToInt(buf);
     oneofday = bu*10+b;
     }
-struct tm c = {0,0,0,oneofday,oneoftvelve-1,oneyear,0,0,0};
+struct tm c = {0,0,0,oneofday,oneoftvelve-1,oneyear+1,0,0,0};
 time_t v = mktime(&c);
 userCount(x,v,buffer1);
     }
@@ -141,7 +142,7 @@ if (mesyac <= 2) // условие для запуска счётчика до �
 oneoftvelve = 3;
 oneofday = 0;
 oneyear = 100;
-struct tm c = {0,0,0,oneofday,oneoftvelve-1,oneyear,0,0,0};
+struct tm c = {0,0,0,oneofday,oneoftvelve-1,oneyear+1,0,0,0};
 time_t spring = mktime(&c);
 newSeason(x,spring,"  До весны");
 }
@@ -150,7 +151,7 @@ if (mesyac >= 3 && mesyac < 6) // условие для запуска счёт�
 oneoftvelve = 6;
 oneofday = 0;
 oneyear = 100;
-struct tm c = {0,0,0,oneofday,oneoftvelve-1,oneyear,0,0,0};
+struct tm c = {0,0,0,oneofday,oneoftvelve-1,oneyear+1,0,0,0};
 time_t summer = mktime(&c);
 newSeason(x,summer,"  До лета");
 }
@@ -159,7 +160,7 @@ if (mesyac >= 6 && mesyac < 9) // условие для запуска счёт�
 oneoftvelve = 9;
 oneofday = 0;
 oneyear = 100;
-struct tm c = {0,0,0,oneofday,oneoftvelve-1,oneyear,0,0,0};
+struct tm c = {0,0,0,oneofday,oneoftvelve-1,oneyear+1,0,0,0};
 time_t fall = mktime(&c);
 newSeason(x,fall,"  До конца лета");
 }
@@ -241,25 +242,23 @@ ifstream efiles;
         SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
          SetConsoleCP(65001);     //       SetConsoleCP(65001);
 
-if(j < 4) cout << " ->>> Создать событие?  (нажмите 1)\n";
-if(j > 0) cout << " <<<- Удалить событие? ";
+if(j < 4) cout << "  Создать событие? (нажмите 1)\n";
+if(j > 0) cout << "  Удалить событие? ";
 
          SetConsoleOutputCP(1251); // SetConsoleOutputCP(1251);
         SetConsoleCP(1251);       //         SetConsoleCP(1251);
 
-if(j == 1) cout << " " << event1 << " (3).\n";
-if(j == 2) cout << " " << event1 << " (3).\n" << "                        " 
-                << event2 << "(4).\n";
-if(j == 3) cout << " " << event1 << " (3).\n" << "                        "
-<< event2 << " (4).\n"<< "                        " << event3 << " (5).\n";
-if(j == 4) cout << " " << event1 << " (3).\n" << "                        "
-<< event2 << " (4).\n" << "                        " << event3 << " (5).\n"
-<< "                        " << event4 << " (6).\n";
+if(j == 1) cout << "\n  ->> " << event1 << " (3).\n";
+if(j == 2) cout << "\n  ->> " << event1 << " (3).\n" << "  ->> " << event2 << " (4).\n";
+if(j == 3) cout << "\n  ->> " << event1 << " (3).\n" << "  ->> " << event2 << " (4).\n"
+ << "  ->> " << event3 << " (5).\n";
+if(j == 4) cout << "\n  ->> " << event1 << " (3).\n" << "  ->> " << event2 << " (4).\n"
+ << "  ->> " << event3 << " (5).\n" << "  ->> " << event4 << " (6).\n";
 
         SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
          SetConsoleCP(65001);     //       SetConsoleCP(65001);
 
-cout << " ->>  Инстркуция  <<-  (нажмите 2)\n";
+cout << "  Инстркуция (нажмите 2)\n";
 
          SetConsoleOutputCP(1251); // SetConsoleOutputCP(1251);
         SetConsoleCP(1251);       //         SetConsoleCP(1251);
@@ -300,7 +299,7 @@ ofstream name2("DoCalendar_data.txt", ios::app);
 if(name2.is_open())
 {
     cin >> oneofyear;
-oneyear = oneofyear+2000;
+oneyear = oneofyear+2001;
 ofstream name2("DoCalendar_data.txt", ios::app);
 name2 << oneyear << " ";
 name2.close();
@@ -393,7 +392,7 @@ return 0;
 
 void nowData(int w, int d, int m, int y) // отображение текущей даты
     {
-    cout << "\n     Сегодня ";
+    cout << "\n - Сегодня ";
     switch (w)
     {
     case 1: cout << "пн"; break;
@@ -404,7 +403,7 @@ void nowData(int w, int d, int m, int y) // отображение текуще�
     case 6: cout << "сб"; break;
     case 7: cout << "вс"; break;
     }
-    cout << "," << d << "." << m << "." << y << "г." << endl;
+    cout << "." << d << "." << m << "." << y << "г. -" << endl;
 }
 
 void newSeason(int x, int y, string a) // счётчик до НГ, весны, лета, конца лета
@@ -451,7 +450,7 @@ void userCount(int x, int y, string message) // отображение перв�
             cout << "  "  << message; 
             SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
              SetConsoleCP(65001);     //       SetConsoleCP(65001);
-            cout << " через " << difference-1 << " дн. " << endl;
+            cout << " через " << difference << " дн. " << endl;
         }
         
         if((difference/7) % 10 == 1  && (difference/365) < 1 && (difference) >= 8) 
@@ -459,7 +458,7 @@ void userCount(int x, int y, string message) // отображение перв�
             cout << "  "  << message; 
             SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
              SetConsoleCP(65001);     //       SetConsoleCP(65001);
-            cout << " через " << difference-1 << " дн. " << difference/7 << " полную нед. " << endl;
+            cout << " через " << difference << " дн. " << difference/7 << " полную нед. " << endl;
         }
         
         if((difference/7) % 10 != 1 && (difference/7) != 0 && (difference/365) < 1 && (difference) >= 8) 
@@ -467,7 +466,7 @@ void userCount(int x, int y, string message) // отображение перв�
             cout << "  "  << message; 
             SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
             SetConsoleCP(65001);     //       SetConsoleCP(65001);
-            cout << " через " << difference-1 << " дн. " << difference/7  << " полных нед. " << endl;
+            cout << " через " << difference << " дн. " << difference/7  << " полных нед. " << endl;
         }
 
         if((difference/365) == 1 || ((difference/365) % 10 == 1 && (difference/365) != 11))
@@ -475,7 +474,7 @@ void userCount(int x, int y, string message) // отображение перв�
             cout << "  "  << message; 
             SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
             SetConsoleCP(65001);     //       SetConsoleCP(65001);
-            cout << " через " << difference-1 << " дн. " << difference/7  << " полных нед. " << difference/365  << " год." << endl;
+            cout << " через " << difference << " дн. " << difference/7  << " полных нед. " << difference/365  << " год." << endl;
         }
         
         if((difference/365) == 11) 
@@ -483,7 +482,7 @@ void userCount(int x, int y, string message) // отображение перв�
             cout << "  "  << message; 
             SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
             SetConsoleCP(65001);     //       SetConsoleCP(65001);
-            cout << " через " << difference-1 << " дн. " << difference/7 << " полных нед. "  << difference/365  << " лет." << endl;
+            cout << " через " << difference << " дн. " << difference/7 << " полных нед. "  << difference/365  << " лет." << endl;
         }
         
         if((difference/365) % 10 > 1 && (difference/365) % 10 < 5)
@@ -491,7 +490,7 @@ void userCount(int x, int y, string message) // отображение перв�
             cout << "  "  << message; 
             SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
             SetConsoleCP(65001);     //       SetConsoleCP(65001);
-            cout << " через " << difference-1 << " дн. " << difference/7 << " полных нед. "  << difference/365  << " годa." << endl;
+            cout << " через " << difference << " дн. " << difference/7 << " полных нед. "  << difference/365  << " годa." << endl;
         }
         
         if(((difference/365) % 10 > 4 && (difference/365) % 10 <= 9) || ((difference/365) % 10 == 0 && (difference/365) != 0))
@@ -499,7 +498,7 @@ void userCount(int x, int y, string message) // отображение перв�
             cout << "  "  << message; 
             SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
             SetConsoleCP(65001);     //       SetConsoleCP(65001);
-            cout << " через " << difference-1 << " дн. " << difference/7 << " полных нед. "  << difference/365  << " лет." << endl;
+            cout << " через " << difference << " дн. " << difference/7 << " полных нед. "  << difference/365  << " лет." << endl;
         }
         cout << " ____________________________________________________________________\n";
         j++;
