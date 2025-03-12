@@ -4,27 +4,25 @@
 // либо дни прошедшие после какого-либо события
 
 #define _CRT_SECURE_NO_WARNINGS
+#include <fstream>
+#include <windows.h>
 #include <iostream>
+#include <conio.h>
+#include <tchar.h>
+#include <cstdlib>
 #include <iomanip>
 #include <ctime>
-#include <cstdlib>
 #include <string>
-#include <fstream>
-#include <Windows.h>
 #include <limits>
-
-// #include <tchar.h>
-// #include <shlobj.h>
-// #include <objbase.h>
-// #include <shellapi.h>
 
 using namespace std;
 
 void nowData(int w, int d, int m, int y);
 void newSeason(int x, int y, string a);
 void userCount(int x, int y, string message);
-void manual();
 int charToInt(char iks);
+void autorun(int tog);
+void manual();
 
 int main() {
 setlocale(LC_ALL, "RU");
@@ -37,9 +35,8 @@ cout << "\n ---    ДоКалендарь    ---\n";
 /// посмотреть как будут меняться счётчики на переходах
 /// настроить отображение консоли
 /// добавить верификацию
-/// добавить автозагрузку (добавить вопрос пользователю)
 
-//// остановился на: автозагрузке
+//// остановился на: автозагрузка ifstream
 
 time_t now = time(0); // текущая дата/время, основанные на текущей системе <ctime>
 struct tm *ltm = localtime(&now);
@@ -56,7 +53,7 @@ int oneoftvelve = 0;
 int oneofyear = 0;
 int oneyear = 0;
 int oneofday = 0;
-int question = 0;
+int question = 7; // 0 занят
 int* const n = new int {54321}; // просто здоровое число для счётчиков (меньше не работает)
 int j = 0;
 
@@ -66,11 +63,37 @@ struct tm b = {0,0,0,0,oneoftvelve,101,0,0,0}; // ожидаемая дата
 time_t y = mktime(&b); // 
 
 
+
+char path[MAX_PATH];
+    char *ppath = path;
+    GetModuleFileNameA(NULL, path, MAX_PATH);
+    cout << ppath << endl;
+    string pstring = path;
+    string old_str{"docalendar_v1.3.exe"};
+    string new_str{"DoCalendar_data.txt"};
+    size_t start {pstring.find(old_str)};
+    while (start != string::npos)
+    {
+        pstring.replace(start, old_str.length(), new_str);
+        start = pstring.find(old_str, start + new_str.length());
+    }
+    cout << pstring << endl;
+
+    ifstream ffiles;
+    ffiles.open(pstring, ios::in);
+    if(ffiles.is_open())
+    {
+        cout << " > file is open < \n";
+        ffiles.close();
+    }
+    else cout << " > file is NOT open < \n";
+
 // ОТКРЫВАЕТ СОХРАНЕННЫЕ СОБЫТИЯ
 ifstream firstfiles;
-    firstfiles.open("DoCalendar_data.txt", ios::in);
+    firstfiles.open(pstring, ios::in);
     if(firstfiles.is_open())
     {
+        cout << " >> file is open << \n";
     string buffer1;
     string buffer0;
     char buf;
@@ -99,9 +122,9 @@ ifstream firstfiles;
     {
     firstfiles >> buf; // считывание и пропуск первого символа
     firstfiles >> buf; // считывание и пропуск второго символа
-    firstfiles >> buf; // считывание третьго символа (20-2-5)
+    firstfiles >> buf; // считывание третьго символа (20->2<-5)
     bu = charToInt(buf);
-    firstfiles >> buf; // считывание четвёртого символа (202-5)
+    firstfiles >> buf; // считывание четвёртого символа (202->5)
     b = charToInt(buf);
     oneyear = bu*10+b+75;
     firstfiles >> buf;
@@ -130,6 +153,7 @@ userCount(x,v,buffer1);
     }
     firstfiles.close();
     }
+    // else cout << " > file is NOT open < \n";
 
         SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
          SetConsoleCP(65001);     //       SetConsoleCP(65001);
@@ -258,18 +282,31 @@ if(j == 4) cout << "\n  ->> " << event1 << " (3).\n" << "  ->> " << event2 << " 
 
         SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
          SetConsoleCP(65001);     //       SetConsoleCP(65001);
+         
+         cout << "  Инструкция (нажмите 2)\n";
+         cout << "  Автозагрузка приложения (9-Добавить / 0-Удалить)\n";
+         
+          SetConsoleOutputCP(1251); // SetConsoleOutputCP(1251);
+         SetConsoleCP(1251);       //         SetConsoleCP(1251);
+         
+         cin >> question;
 
-cout << "  Инструкция (нажмите 2)\n";
-
-         SetConsoleOutputCP(1251); // SetConsoleOutputCP(1251);
-        SetConsoleCP(1251);       //         SetConsoleCP(1251);
-
-cin >> question;
-
-        SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
+// АВТОЗАГРУЗКА
+if(question == 9)
+{
+    autorun(question);
+    MessageBox(NULL, _T("Autorun is OK"), _T("Autorun"), 0);
+}
+if(question == 0)
+{
+    autorun(question);
+    MessageBox(NULL, _T("Autorun OFF"), _T("Autorun"), 0);
+}    
+         
+         SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
          SetConsoleCP(65001);     //       SetConsoleCP(65001);
          
-// СОЗДАНИЕ
+         // СОЗДАНИЕ
          if (j < 4 && question == 1)
          {
              string message;
@@ -282,16 +319,16 @@ cin >> question;
              while (message.empty())
              {
                  cin.clear(); 
-        getline(cin, message);
-    }
-    
-    SetConsoleOutputCP(1251); // SetConsoleOutputCP(1251);
-    SetConsoleCP(1251);       //         SetConsoleCP(1251);
-    
-    ofstream name("DoCalendar_data.txt", ios::app);
-    name << "|" << message << " . ";
-name.close();
-
+                 getline(cin, message);
+             }
+                
+                 SetConsoleOutputCP(1251); // SetConsoleOutputCP(1251);
+                SetConsoleCP(1251);       //         SetConsoleCP(1251);
+                
+                ofstream name("DoCalendar_data.txt", ios::app);
+                name << "|" << message << " . ";
+                name.close();
+                
 SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
 SetConsoleCP(65001);     //       SetConsoleCP(65001); 
 
@@ -425,7 +462,7 @@ void userCount(int x, int y, string message) // отображение перв�
     {
     fstream name;
     char msg;
-    name.open("DoCalendar_data.txt", ios::in);
+    name.open("DoCalendar_data.txt");
          SetConsoleOutputCP(1251); // SetConsoleOutputCP(1251);
         SetConsoleCP(1251);       //         SetConsoleCP(1251);
         int j = 0;
@@ -604,6 +641,35 @@ int charToInt (char iks) // преодразование char в int (от 0 д�
         } 
     }
     return x;
+}
+
+void autorun(int tog)
+{
+    char re[MAX_PATH]{};
+    string FP = string(re, GetModuleFileNameA(NULL, re, MAX_PATH));
+
+            if (tog == 0)
+            {
+                cout << "OFF" << endl;
+                HKEY hkey = HKEY_CURRENT_USER;
+                RegOpenKey(HKEY_CURRENT_USER, _T("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"
+                ), &hkey);
+                RegDeleteValue(hkey, _T("Autorun"));
+                RegCloseKey(hkey);
+            }
+            else if (tog == 9)
+            {
+                cout << "ON" << endl;
+    char path[MAX_PATH];
+    GetCurrentDirectoryA(sizeof(path), path);
+    string path_in_string = path;
+    cout << " >>> " << path_in_string.c_str() << " <<<" << endl;
+                HKEY hkey;
+                LONG key = RegOpenKeyEx(HKEY_CURRENT_USER,
+                    _T("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"), 0, KEY_WRITE, &hkey);
+                if (ERROR_SUCCESS == key) key = RegSetValueEx(hkey, _T("Autorun"), 0, REG_SZ,
+                (BYTE*)FP.c_str(), strlen(FP.c_str())+111);
+            }
 }
 
 void manual()
