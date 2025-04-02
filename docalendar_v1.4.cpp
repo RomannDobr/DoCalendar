@@ -34,15 +34,24 @@ int main() {
     SetConsoleOutputCP(65001);
     SetConsoleCP(65001);
 
+    // НАСТРОЙКА ОТОБРАЖЕНИЯ КОНСОЛИ
+    MoveWindow(GetConsoleWindow(), 620, 220, 740, 670, TRUE); // установка размеров консоли
+    system("color 8F"); // установка цвета консоли
+    HANDLE hConsole = GetStdHandle( STD_OUTPUT_HANDLE ); // установка шрифта
+    CONSOLE_FONT_INFOEX fontInfo;
+    fontInfo.cbSize = sizeof( fontInfo );
+    GetCurrentConsoleFontEx( hConsole, TRUE, &fontInfo );
+    wcscpy( fontInfo.FaceName, L"Lucida Console" ); // установка типа шрифта
+    fontInfo.dwFontSize.Y = 15; // установка размера шрифта
+    SetCurrentConsoleFontEx( hConsole, TRUE, &fontInfo );
+
     cout << "\n ---    ДоКалендарь    ---\n";
 
     /// посмотреть как будут меняться счётчики на переходах
-    /// настроить отображение консоли
     /// добавить верификацию
-    /// убрать иероглифы из текстовика
-    /// дорулить автозагрузку (вкл\выкл)
+    /// проверить наличие иероглифов в текстовике
 
-    //// остановился на: проверка автозагрузки
+    //// остановился на: удаление иероглифов
 
     time_t now = time(0); // текущая дата/время, основанные на текущей системе <ctime>
     struct tm* ltm = localtime(&now);
@@ -72,12 +81,7 @@ int main() {
     string FP = string(re, GetModuleFileNameA(NULL, re, MAX_PATH));
 
     //   cout << "\n14:59\n";
-    //   HKEY hkey;
-    // LONG key = RegOpenKeyExA(HKEY_CURRENT_USER,
-    // "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", 0, KEY_WRITE, &hkey);
-    //   wcout << "\n key> " << key << "\n" << 
-
-    //   fs::path(FP).replace_filename("DoCalendar_data.txt") << endl;
+    //   cout << 
 
         // ОТКРЫВАЕТ СОХРАНЕННЫЕ СОБЫТИЯ
     for (int i = 0; i < 3; i++)
@@ -86,7 +90,6 @@ int main() {
         firstfiles.open(fs::path(FP).replace_filename("DoCalendar_data.txt"));
         if (firstfiles.is_open())
         {
-            // cout << " >> file is open << \n";
             string buffer1;
             string buffer0;
             char buf;
@@ -262,7 +265,7 @@ int main() {
     SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
     SetConsoleCP(65001);     //       SetConsoleCP(65001);
 
-    if (j < 4) cout << "  Создать событие? (нажмите 1)\n";
+    if (j < 4) cout << "  Создать событие? (нажмите 1)\n\n";
     if (j > 0) cout << "  Удалить событие? ";
 
     SetConsoleOutputCP(1251); // SetConsoleOutputCP(1251);
@@ -278,8 +281,12 @@ int main() {
     SetConsoleOutputCP(65001); // SetConsoleOutputCP(65001);
     SetConsoleCP(65001);     //       SetConsoleCP(65001);
 
-    cout << "  Инструкция (нажмите 2)\n";
-    cout << "  Автозагрузка приложения (9-Добавить / 8-Удалить)\n";
+    cout << "\n  Инструкция (нажмите 2)\n\n";
+
+    LONG check = RegGetValueA(HKEY_CURRENT_USER, "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run",
+        "DoCalendar", RRF_RT_REG_SZ, 0, 0, 0);
+    if(check == 0) cout << "  Удалить из автозагрузки (8)\n";
+    if(check == 2) cout << "  Добавить в автозагрузку (9)\n";
 
     SetConsoleOutputCP(1251); // SetConsoleOutputCP(1251);
     SetConsoleCP(1251);       //         SetConsoleCP(1251);
@@ -416,7 +423,8 @@ int main() {
 
     delete n;
 
-    for (int i = 0; i < 5; i++) cout << "\n";
+    cout << "\n\n  Для ввода новых данных перезапустите программу\n\n";
+
     system("pause");
 }
 
